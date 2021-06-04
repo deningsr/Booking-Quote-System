@@ -1,6 +1,6 @@
 class Package:
-    def __init__(self, customer_name, description, dangerous, weight, volume, del_date):
-        self.customer_name = customer_name
+    def __init__(self, cust_name, description, dangerous, weight, volume, del_date):
+        self.cust_name = cust_name
         self.description = description
         self.dangerous = dangerous
         self.weight = weight
@@ -11,3 +11,21 @@ class Package:
 class BookingQuote:
     def __init__(self, package):
         self.package = package
+
+
+class Customer:
+    def __init__(self, fname, lname):
+        self.fname = fname
+        self.lname = lname
+
+
+class Rule:
+    def can_be_shipped(self, package):
+        if package.weight < 10 or package.volume < 125:
+            return True
+        else:
+            return False
+
+
+class ShipmentMethod:
+    pass
