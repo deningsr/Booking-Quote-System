@@ -1,11 +1,37 @@
+from datetime import datetime
+import sys
+
+
 class Package:
+    price_to_ship = 0
+
     def __init__(self, cust_name, description, dangerous, weight, volume, del_date):
+        self.urgent = False
         self.cust_name = cust_name
         self.description = description
         self.dangerous = dangerous
         self.weight = weight
         self.volume = volume
         self.del_date = del_date
+
+    def set_urgency(self):
+        pass
+
+
+class PackageManager:
+    def __init__(self):
+
+        """Initialized empty list of packages"""
+
+        self.packages = []
+
+    def new_package(self, cust_name, description, dangerous, weight, volume, del_date):
+
+        """Creates a new package and adds it to the list"""
+
+        self.packages.append(
+            Package(cust_name, description, dangerous, weight, volume, del_date)
+        )
 
 
 class BookingQuote:
@@ -19,13 +45,47 @@ class Customer:
         self.lname = lname
 
 
-class Rule:
-    def can_be_shipped(self, package):
-        if package.weight < 10 or package.volume < 125:
+class Rules:
+    def ship_via_air(self, package):
+        if (
+            (package.weight < 10)
+            and (package.volume < 125)
+            and (package.dangerous == False)
+        ):
             return True
         else:
             return False
 
+    def ship_via_truck(self):
+        pass
 
-class ShipmentMethod:
-    pass
+
+class Menu:
+
+    """Displays a list of options on the terminal for the user to run"""
+
+    def __init__(self):
+        self.packages = PackageManager()
+
+        self.choices = {
+            "1": self.ship_package,
+            "2": self.save_package,
+            "3": self.show_all_packages,
+            "4": self.quit,
+        }
+
+    def display_menu(self):
+        print(
+            """
+        
+               Booking Quote System Menu
+
+               1.  Ship a package
+
+               2.  Save package to CSV
+
+               3.  Display all packages
+
+               4.  Quit Program
+            """
+        )
