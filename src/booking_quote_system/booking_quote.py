@@ -89,3 +89,18 @@ class Menu:
                4.  Quit Program
             """
         )
+
+    def run(self):
+        """Displays menu and respond to user inputs"""
+
+        while True:
+            self.display_menu()
+
+            choice = input("Please enter an option below: ")
+
+            response = self.choices.get(choice)
+
+            if response:
+                response()
+            else:
+                print("{0} is not a valid choice".format(choice))
