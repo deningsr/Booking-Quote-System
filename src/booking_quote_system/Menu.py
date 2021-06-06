@@ -1,65 +1,8 @@
-from datetime import datetime
 import sys
-import uuid
+from datetime import datetime
 import csv
-
-
-class Package:
-    def __init__(
-        self,
-        cust_fname,
-        cust_lname,
-        description,
-        dangerous,
-        weight,
-        volume,
-        del_date,
-    ):
-        self.package_id = str(uuid.uuid4().fields[-1])[:5]
-        self.urgent = False
-        self.cust_fname = cust_fname
-        self.cust_lname = cust_lname
-        self.description = description
-        self.dangerous = dangerous
-        self.weight = weight
-        self.volume = volume
-        self.del_date = del_date
-        self.price_to_ship = 0
-
-    def set_urgency(self):
-        pass
-
-
-class PackageManager:
-    def __init__(self):
-
-        """Initialized empty list of packages"""
-
-        self.packages = []
-
-    def new_package(self, package):
-
-        """Creates a new package and adds it to the list"""
-
-        self.packages.append(package)
-
-
-class Rules:
-    def ship_via_air(self, package):
-        if (
-            (package.weight < 10)
-            and (package.volume < 125)
-            and (package.dangerous == False)
-        ):
-            print("Your package will be routed via air!")
-            price_per_kg = package.weight * 10
-            price_per_cubic_meter = package.weight * 20
-            if price_per_kg > price_per_cubic_meter:
-                package.price_to_ship = price_per_kg
-            else:
-                package.price_to_ship = price_per_cubic_meter
-        elif (package.urgent == True) and ():
-            return
+from booking_quote_system.Package import Package
+from booking_quote_system.PackageManager import PackageManager
 
 
 class Menu:
@@ -128,17 +71,31 @@ class Menu:
             del_date,
         )
 
-        Rules.ship_via_air(self, package_to_ship)
+        # Rules.ship_via_air(self, package_to_ship)
 
         self.packages.new_package(package_to_ship)
 
     def save_package(self):
-        self.packages.packages
-        with open("booking_quotes.csv", "w", newline="") as file:
-            writer = csv.writer(file)
+        packages = self.packages.packages
+        with open("booking_quotes.csv", "w") as file:
+            for package in packages:
+                members = [
+                    attr
+                    for attr in dir(package)
+                    if not callable(getattr(package, attr))
+                    and not attr.startswith("__")
+                ]
+                values = [getattr(package, member) for member in members]
+                readData = dict()
+                for key in members:
+                    for value in values:
+                        readData[key] = value
+                dict_writer = csv.DictWriter(file, fieldnames=members)
+                dict_writer.writerows(readData)
 
     def show_all_packages(self):
-        pass
+        for package in self.packages.packages:
+            print(package.weight)
 
     def quit(self):
         """quits or terminates the program"""
