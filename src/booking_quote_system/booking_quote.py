@@ -104,3 +104,10 @@ class Menu:
                 response()
             else:
                 print("{0} is not a valid choice".format(choice))
+
+    def quit(self):
+        """quits or terminates the program"""
+
+        print("Thank you for using the Booking Quote System")
+
+        sys.exit(0)
