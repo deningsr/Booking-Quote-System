@@ -1,13 +1,25 @@
 from datetime import datetime
 import sys
+import uuid
 
 
 class Package:
     price_to_ship = 0
 
-    def __init__(self, cust_name, description, dangerous, weight, volume, del_date):
+    def __init__(
+        self,
+        cust_fname,
+        cust_lname,
+        description,
+        dangerous,
+        weight,
+        volume,
+        del_date,
+    ):
+        self.package_id = str(uuid.uuid4().fields[-1])[:5]
         self.urgent = False
-        self.cust_name = cust_name
+        self.cust_fname = cust_fname
+        self.cust_lname = cust_lname
         self.description = description
         self.dangerous = dangerous
         self.weight = weight
@@ -25,12 +37,29 @@ class PackageManager:
 
         self.packages = []
 
-    def new_package(self, cust_name, description, dangerous, weight, volume, del_date):
+    def new_package(
+        self,
+        cust_fname,
+        cust_lname,
+        description,
+        dangerous,
+        weight,
+        volume,
+        del_date,
+    ):
 
         """Creates a new package and adds it to the list"""
 
         self.packages.append(
-            Package(cust_name, description, dangerous, weight, volume, del_date)
+            Package(
+                cust_fname,
+                cust_lname,
+                description,
+                dangerous,
+                weight,
+                volume,
+                del_date,
+            )
         )
 
 
@@ -104,6 +133,27 @@ class Menu:
                 response()
             else:
                 print("{0} is not a valid choice".format(choice))
+
+    def ship_package(self):
+        """Ships a new package and adds it to the list"""
+
+        cust_fname = input("Enter First Name: ")
+        cust_lname = input("Enter Last Name: ")
+        description = input("Enter package description: ")
+        dangerous = input("Are the contents dangerous (True/False)?: ")
+        weight = input("Enter package weight in kg: ")
+        volume = input("Enter package volume in cubic meters: ")
+        del_date = input("Enter required package delivery date: ")
+
+        self.packages.new_package(
+            cust_fname,
+            cust_lname,
+            description,
+            dangerous,
+            weight,
+            volume,
+            del_date,
+        )
 
     def quit(self):
         """quits or terminates the program"""
