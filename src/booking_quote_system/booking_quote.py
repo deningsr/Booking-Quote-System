@@ -1,6 +1,7 @@
 from datetime import datetime
 import sys
 import uuid
+import csv
 
 
 class Package:
@@ -43,17 +44,6 @@ class PackageManager:
         self.packages.append(package)
 
 
-class BookingQuote:
-    def __init__(self, package):
-        self.package = package
-
-
-class Customer:
-    def __init__(self, fname, lname):
-        self.fname = fname
-        self.lname = lname
-
-
 class Rules:
     def ship_via_air(self, package):
         if (
@@ -68,12 +58,8 @@ class Rules:
                 package.price_to_ship = price_per_kg
             else:
                 package.price_to_ship = price_per_cubic_meter
-            package.price_to_ship = 
-        else:
-            return False
-
-    def ship_via_truck(self):
-        pass
+        elif (package.urgent == True) and ():
+            return
 
 
 class Menu:
@@ -142,9 +128,17 @@ class Menu:
             del_date,
         )
 
-        Rules.ship_via_air(package_to_ship)
+        Rules.ship_via_air(self, package_to_ship)
 
         self.packages.new_package(package_to_ship)
+
+    def save_package(self):
+        self.packages.packages
+        with open("booking_quotes.csv", "w", newline="") as file:
+            writer = csv.writer(file)
+
+    def show_all_packages(self):
+        pass
 
     def quit(self):
         """quits or terminates the program"""
