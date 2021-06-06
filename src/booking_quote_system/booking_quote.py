@@ -4,8 +4,6 @@ import uuid
 
 
 class Package:
-    price_to_ship = 0
-
     def __init__(
         self,
         cust_fname,
@@ -25,6 +23,7 @@ class Package:
         self.weight = weight
         self.volume = volume
         self.del_date = del_date
+        self.price_to_ship = 0
 
     def set_urgency(self):
         pass
@@ -37,30 +36,11 @@ class PackageManager:
 
         self.packages = []
 
-    def new_package(
-        self,
-        cust_fname,
-        cust_lname,
-        description,
-        dangerous,
-        weight,
-        volume,
-        del_date,
-    ):
+    def new_package(self, package):
 
         """Creates a new package and adds it to the list"""
 
-        self.packages.append(
-            Package(
-                cust_fname,
-                cust_lname,
-                description,
-                dangerous,
-                weight,
-                volume,
-                del_date,
-            )
-        )
+        self.packages.append(package)
 
 
 class BookingQuote:
@@ -81,7 +61,14 @@ class Rules:
             and (package.volume < 125)
             and (package.dangerous == False)
         ):
-            return True
+            print("Your package will be routed via air!")
+            price_per_kg = package.weight * 10
+            price_per_cubic_meter = package.weight * 20
+            if price_per_kg > price_per_cubic_meter:
+                package.price_to_ship = price_per_kg
+            else:
+                package.price_to_ship = price_per_cubic_meter
+            package.price_to_ship = 
         else:
             return False
 
@@ -145,7 +132,7 @@ class Menu:
         volume = input("Enter package volume in cubic meters: ")
         del_date = input("Enter required package delivery date: ")
 
-        self.packages.new_package(
+        package_to_ship = Package(
             cust_fname,
             cust_lname,
             description,
@@ -155,9 +142,18 @@ class Menu:
             del_date,
         )
 
+        Rules.ship_via_air(package_to_ship)
+
+        self.packages.new_package(package_to_ship)
+
     def quit(self):
         """quits or terminates the program"""
 
         print("Thank you for using the Booking Quote System")
 
         sys.exit(0)
+
+
+if __name__ == "__main__":
+
+    Menu().run()
