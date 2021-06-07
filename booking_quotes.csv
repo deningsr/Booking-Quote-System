@@ -1,0 +1,5 @@
+cust_fname,cust_lname,dangerous,del_date,description,package_id,price_to_ship,urgent,volume,weight
+Denin,Grcic,Trye,10-10-2020,small,48260,0,False,10,4
+Ben,Smith,True,01-01-2021,large,94364,0,False,45,15
+Allisen,Burg,False,03-10-2023,small package,91280,0,False,300,30
+Allisen,Burg,False,03-10-2023,small package,91280,0,False,300,30
