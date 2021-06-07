@@ -1,6 +1,6 @@
 import sys
-from datetime import datetime
 import csv
+from datetime import datetime
 from booking_quote_system.Package import Package
 from booking_quote_system.PackageManager import PackageManager
 
@@ -37,7 +37,7 @@ class Menu:
 
     def run(self):
         """Displays menu and respond to user inputs"""
-
+        self.create_initial_file()
         while True:
             self.display_menu()
 
@@ -75,27 +75,60 @@ class Menu:
 
         self.packages.new_package(package_to_ship)
 
+    def create_initial_file(self):
+        with open("booking_quotes.csv", "w") as file:
+            fieldnames = [
+                "cust_fname",
+                "cust_lname",
+                "dangerous",
+                "del_date",
+                "description",
+                "package_id",
+                "price_to_ship",
+                "urgent",
+                "volume",
+                "weight",
+            ]
+            dict_writer = csv.DictWriter(file, fieldnames=fieldnames)
+            dict_writer.writeheader()
+
     def save_package(self):
         packages = self.packages.packages
-        with open("booking_quotes.csv", "w") as file:
-            for package in packages:
-                members = [
-                    attr
-                    for attr in dir(package)
-                    if not callable(getattr(package, attr))
-                    and not attr.startswith("__")
-                ]
-                values = [getattr(package, member) for member in members]
-                readData = dict()
-                for key in members:
-                    for value in values:
-                        readData[key] = value
-                dict_writer = csv.DictWriter(file, fieldnames=members)
-                dict_writer.writerows(readData)
+        with open("booking_quotes.csv", "a", newline="") as file:
+            # for package in packages:
+            #     members = [
+            #         attr
+            #         for attr in dir(package)
+            #         if not callable(getattr(package, attr))
+            #         and not attr.startswith("__")
+            #     ]
+            #     values = [getattr(package, member) for member in members]
+            #     readData = dict(zip(members, values))
+            #     dict_writer = csv.DictWriter(file, fieldnames=members)
+            #     dict_writer.writeheader()
+            #     dict_writer.writerow(readData)
+
+            members = [
+                attr
+                for attr in dir(packages[-1])
+                if not callable(getattr(packages[-1], attr))
+                and not attr.startswith("__")
+            ]
+            values = [getattr(packages[-1], member) for member in members]
+            readData = dict(zip(members, values))
+            dict_writer = csv.DictWriter(file, fieldnames=members)
+            # dict_writer.writeheader()
+            dict_writer.writerow(readData)
 
     def show_all_packages(self):
         for package in self.packages.packages:
-            print(package.weight)
+            members = [
+                attr
+                for attr in dir(package)
+                if not callable(getattr(package, attr)) and not attr.startswith("__")
+            ]
+            print(members)
+            print([getattr(package, member) for member in members])
 
     def quit(self):
         """quits or terminates the program"""
