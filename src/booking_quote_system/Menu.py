@@ -37,7 +37,7 @@ class Menu:
 
     def run(self):
         """Displays menu and respond to user inputs"""
-        self.create_initial_file()
+        # self.create_initial_file()
         while True:
             self.display_menu()
 
@@ -121,14 +121,19 @@ class Menu:
             dict_writer.writerow(readData)
 
     def show_all_packages(self):
-        for package in self.packages.packages:
-            members = [
-                attr
-                for attr in dir(package)
-                if not callable(getattr(package, attr)) and not attr.startswith("__")
-            ]
-            print(members)
-            print([getattr(package, member) for member in members])
+        with open("booking_quotes.csv", "r") as file:
+
+            dict_reader = csv.DictReader(file)
+            for row in dict_reader:
+                print(row)
+        # for package in self.packages.packages:
+        #     members = [
+        #         attr
+        #         for attr in dir(package)
+        #         if not callable(getattr(package, attr)) and not attr.startswith("__")
+        #     ]
+        #     print(members)
+        #     print([getattr(package, member) for member in members])
 
     def quit(self):
         """quits or terminates the program"""
