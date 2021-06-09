@@ -57,8 +57,28 @@ class Menu:
         cust_lname = input("Enter Last Name: ")
         description = input("Enter package description: ")
         dangerous = input("Are the contents dangerous (True/False)?: ")
-        weight = input("Enter package weight in kg: ")
-        volume = input("Enter package volume in cubic meters: ")
+        while True:
+            try:
+                weight = int(input("Enter package weight in kg: "))
+                if weight > 10:
+                    raise ValueError
+            except ValueError:
+                print("Your package must not be heavier than 10kg, please try again")
+                continue
+            else:
+                break
+        while True:
+            try:
+                volume = int(input("Enter package volume in cubic meters: "))
+                if volume > 125:
+                    raise ValueError
+            except ValueError:
+                print(
+                    "Your package must not be larger than 125 cubic meters, please try again"
+                )
+                continue
+            else:
+                break
         del_date = input("Enter required package delivery date: ")
 
         package_to_ship = Package(
@@ -122,8 +142,8 @@ class Menu:
 
     def show_all_packages(self):
         with open("booking_quotes.csv", "r") as file:
-
             dict_reader = csv.DictReader(file)
+            readData = [row for row in csv.DictReader(file)]
             for row in dict_reader:
                 print(row)
         # for package in self.packages.packages:
