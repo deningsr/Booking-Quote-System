@@ -94,8 +94,6 @@ class Menu:
         print(package_to_ship.dangerous)
         print(package_to_ship.urgent)
 
-        determine_shipping
-
         self.packages.new_package(determine_shipping(package_to_ship))
 
     def create_initial_file(self):
