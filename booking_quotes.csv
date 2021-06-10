@@ -3,3 +3,13 @@ Denin,Grcic,True,10-02-2020,small,10364,0,False,10,4
 Ben,Smith,False,01-01-2020,large,16525,0,False,10,3
 Allen,Smith,True,01-01-3000,stuff,19426,0,False,90,4
 Allisen,love,False,09-20-1990,more stuff,87770,0,False,20,4
+Denin,Grcic,False,2021-06-18 00:00:00,large,21258,0,True,40,4
+Ben,Stark,True,2021-06-18 00:00:00,large,80507,0,False,40,13
+Tom,Ford,False,2021-06-08 00:00:00,small,23934,0,True,50,4
+Denin,Grcic,False,2021-06-10 00:00:00,large,29610,0,True,100,5
+Denin,Grcic,True,2021-06-10 00:00:00,small,17949,0,True,50,4
+Denin,Grcic,True,2021-06-10 00:00:00,small,22607,0,True,30,4
+Ben,Smith,True,2021-06-10 00:00:00,large,60536,0,True,10,4
+Denin,Grcic,True,2021-06-11 00:00:00,small,74668,0,True,10,4
+Sam,Smith,False,2021-06-10 00:00:00,immportant,18917,0,True,30,4
+Denin,Grcic,False,2021-06-11 00:00:00,small,26869,0,True,10,5

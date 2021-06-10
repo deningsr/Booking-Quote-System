@@ -3,6 +3,7 @@ import csv
 from datetime import datetime
 from booking_quote_system.Package import Package
 from booking_quote_system.PackageManager import PackageManager
+from booking_quote_system.Rules import determine_shipping
 
 
 class Menu:
@@ -90,10 +91,12 @@ class Menu:
             volume,
             del_date,
         )
+        print(package_to_ship.dangerous)
+        print(package_to_ship.urgent)
 
-        # Rules.ship_via_air(self, package_to_ship)
+        determine_shipping
 
-        self.packages.new_package(package_to_ship)
+        self.packages.new_package(determine_shipping(package_to_ship))
 
     def create_initial_file(self):
         with open("booking_quotes.csv", "w") as file:
@@ -144,7 +147,7 @@ class Menu:
         with open("booking_quotes.csv", "r") as file:
             dict_reader = csv.DictReader(file)
             readData = [row for row in csv.DictReader(file)]
-            for row in dict_reader:
+            for row in readData:
                 print(row)
         # for package in self.packages.packages:
         #     members = [
